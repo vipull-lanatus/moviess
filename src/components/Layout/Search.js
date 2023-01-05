@@ -19,7 +19,6 @@ const Search = (props) => {
         pl: "10px",
         pt: "2px",
         fontWeight: "700",
-        color: "var(--light)",
         "&:focus": {
           outline: "none",
           borderColor: "black",
@@ -27,6 +26,12 @@ const Search = (props) => {
       }}
       InputProps={{
         disableUnderline: true,
+      }}
+      inputProps={{
+        style: {
+          color: "var(--light)",
+          caretColor: "green",
+        },
       }}
     />
   );
