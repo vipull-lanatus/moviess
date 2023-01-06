@@ -1,9 +1,12 @@
 import React from "react";
 import style from "./MainHeader.module.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import Search from "./Search";
+import { Button } from "@mui/material";
 
 const MainHeader = (props) => {
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
   return (
     <div className={style.mainHeader}>
       <div className={style.logo}>
@@ -11,6 +14,19 @@ const MainHeader = (props) => {
       </div>
       <div className={style.actions}>
         <Search onChange={props.onChange} />
+        <Button
+          onClick={props.onClick}
+          sx={{
+            ml: 2,
+            p: 1,
+            width: "17rem",
+            color: "var(--light)",
+            borderRadius: 2,
+            border: "1px solid var(--light)",
+          }}
+        >
+          Sort {queryParams.get("sort") === "asc" ? "Descending" : "Ascending"}
+        </Button>
       </div>
       <ul className={style.nav}>
         <li>
@@ -28,7 +44,7 @@ const MainHeader = (props) => {
             className={(link) => {
               return link.isActive ? style.active : "";
             }}
-            to="/"
+            to="/edit"
           >
             Edit
           </NavLink>

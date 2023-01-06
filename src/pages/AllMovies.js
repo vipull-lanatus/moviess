@@ -3,7 +3,8 @@ import Movies from "../components/Movies/Movies";
 import MainHeader from "../components/Layout/MainHeader";
 import { fetchMovies } from "../Data/Api";
 import { useLoaderData, useLocation, useNavigate } from "react-router-dom";
-import { Button } from "@mui/material";
+import { Container } from "@mui/system";
+import NoMovieFound from "../components/Movies/NoMovieFound";
 
 const AllMovies = () => {
   const navigate = useNavigate();
@@ -13,7 +14,7 @@ const AllMovies = () => {
   const [movies, setMovies] = useState(allMovies);
   const queryParams = new URLSearchParams(location.search);
   const sortingOrder = queryParams.get("sort");
-
+  console.log({ allMovies });
   const filterMoviesHandler = (str) => {
     str.trim().length !== 0
       ? setMovies(
@@ -26,7 +27,6 @@ const AllMovies = () => {
 
   const changeSortingOrder = () => {
     navigate(`?sort=${sortingOrder === "asc" ? "desc" : "asc"}`);
-
     if (sortingOrder === "asc") {
       movies.sort((movieX, movieY) => (movieX.id < movieY.id ? 1 : -1));
     } else {
@@ -35,31 +35,11 @@ const AllMovies = () => {
   };
 
   return (
-    <>
-      <MainHeader onChange={filterMoviesHandler} />
-      {movies.length > 0 && (
-        <Button
-          onClick={changeSortingOrder}
-          sx={{
-            mt: "6.5rem",
-            zIndex: "5",
-            position: "absolute",
-            ml: "4.7rem",
-            height: "3rem",
-            width: "15rem",
-            backgroundColor: "var(--primary)",
-            color: "var(--light)",
-            "&:hover": {
-              backgroundColor: "var(--primary)",
-            },
-          }}
-        >
-          Sort {sortingOrder === "asc" ? "Descending" : "Ascending"}
-        </Button>
-      )}
+    <Container maxWidth="true" disableGutters>
+      <MainHeader onChange={filterMoviesHandler} onClick={changeSortingOrder} />
       {movies.length > 0 && <Movies movies={movies} />}
-      {movies.length === 0 && <p>No movie found</p>}
-    </>
+      {movies.length === 0 && <NoMovieFound />}
+    </Container>
   );
 };
 

@@ -1,13 +1,25 @@
 import React from "react";
 import Movie from "./Movie";
-import style from "./Movies.module.css";
+import { Container, Grid } from "@mui/material";
+
 const Movies = (props) => {
   return (
-    <div className={style.movies}>
-      {props.movies.map((item, i) => (
-        <Movie key={`${item.id}_${i}`} movie={item} />
-      ))}
-    </div>
+    <Container>
+      <Grid
+        container
+        spacing={3}
+        sx={{
+          height: "auto",
+          minHeight: "100vh",
+        }}
+      >
+        {props.movies.map((item, i) => (
+          <Grid key={`${item.id}_${i}`} item xs={12} sm={6} md={4}>
+            <Movie key={`${item.id}_${i}`} movie={item} />
+          </Grid>
+        ))}
+      </Grid>
+    </Container>
   );
 };
 

@@ -11,18 +11,12 @@ const Search = (props) => {
       placeholder="Movie"
       color="success"
       sx={{
-        outline: "none",
         width: "100%",
-        height: "2.5rem",
         border: "1px solid var(--light)",
-        borderRadius: "12px",
-        pl: "10px",
-        pt: "2px",
+        borderRadius: 2,
+        p: 1,
+        pl: 2,
         fontWeight: "700",
-        "&:focus": {
-          outline: "none",
-          borderColor: "black",
-        },
       }}
       InputProps={{
         disableUnderline: true,
@@ -30,7 +24,6 @@ const Search = (props) => {
       inputProps={{
         style: {
           color: "var(--light)",
-          caretColor: "green",
         },
       }}
     />
