@@ -1,15 +1,16 @@
 const API_KEY = "144f6087e03002cc3af283b78ee6050d";
 
-export const fetchMovies = async () => {
+export const fetchMovies = async (page = 1) => {
   try {
     const response = await fetch(
-      `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}`
+      `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&page=${page}`
     );
 
     if (!response.ok) {
       throw { message: "Can't find any movie", status: 404 };
     }
-    return response.json();
+    const data = await response.json();
+    return data;
   } catch (error) {
     throw error;
   }

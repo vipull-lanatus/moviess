@@ -1,10 +1,10 @@
 import React from "react";
 import Movie from "./Movie";
-import { Container, Grid } from "@mui/material";
+import { Button, Container, Grid } from "@mui/material";
 
 const Movies = (props) => {
   return (
-    <Container>
+    <Container maxWidth>
       <Grid
         container
         spacing={3}
@@ -14,7 +14,7 @@ const Movies = (props) => {
         }}
       >
         {props.movies.map((item, i) => (
-          <Grid key={`${item.id}_${i}`} item xs={12} sm={6} md={4}>
+          <Grid key={`${item.id}_${i}`} item xs={12} sm={6} md={3}>
             <Movie key={`${item.id}_${i}`} movie={item} />
           </Grid>
         ))}

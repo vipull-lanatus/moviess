@@ -14,7 +14,7 @@ const Movie = (props) => {
       sx={{
         minHeight: "24rem",
         height: "max-content",
-        width: "18rem",
+        width: "17rem",
         margin: "1rem auto",
         borderRadius: "12px",
         color: "var(--light)",

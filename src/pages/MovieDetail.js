@@ -2,9 +2,9 @@ import React from "react";
 import { fetchMovie } from "../Data/Api";
 import { useLoaderData } from "react-router-dom";
 import {
+  Button,
   Card,
   CardContent,
-  CardMedia,
   Container,
   Divider,
   Grid,
@@ -13,18 +13,22 @@ import {
 
 const MovieDetail = () => {
   const movie = useLoaderData();
+  const trailerLink = movie.videos.results.find(
+    (item) => item.type === "Trailer"
+  ).key;
   console.log({ movie });
+  console.log({ trailerLink });
 
   return (
-    <Container maxWidth disableGutters sx={{ backgroundColor: "var(--light)" }}>
+    <Container maxWidth sx={{ backgroundColor: "var(--light)" }}>
       <Grid
         container
         sx={{
           minHeight: "100vh",
           height: "auto",
           display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
+          justifyContent: "space-around",
+          boxShadow: "none",
         }}
       >
         <Grid
@@ -32,27 +36,30 @@ const MovieDetail = () => {
           md={4}
           sm={12}
           sx={{
+            mt: 8,
+
             maxHeight: "100vh",
             borderRadius: "10px",
-            boxShadow: "5px 0 10px -4px gray",
             zIndex: 1,
+            boxShadow: "none",
           }}
         >
-          <CardMedia
+          <img
             component="img"
             alt="Not found"
-            image={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-            sx={{
-              height: "auto",
+            src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+            style={{
+              height: "80vh",
               objectFit: "contain",
             }}
           />
         </Grid>
         <Grid
           item
-          md={8}
+          md={7}
           sm={8}
           sx={{
+            mt: 8,
             height: "90vh",
             borderRadius: "0px 10px 10px 0px",
           }}
@@ -80,14 +87,12 @@ const MovieDetail = () => {
                 width="100%"
                 fontWeight="900"
                 sx={{
-                  cursor: "pointer",
                   mt: 3,
                   textAlign: "center",
                 }}
               >
                 {movie.title}
               </Typography>
-
               <Typography
                 gutterBottom
                 textAlign="center"
@@ -96,6 +101,7 @@ const MovieDetail = () => {
               >
                 {movie.tagline}
               </Typography>
+
               <Typography
                 color="text.secondary"
                 textAlign="justify"
@@ -103,7 +109,73 @@ const MovieDetail = () => {
               >
                 {movie.overview}
               </Typography>
-
+              <Typography
+                width="90%"
+                textAlign="center"
+                sx={{
+                  mt: 4,
+                  mb: 2,
+                  mx: "auto",
+                }}
+              >
+                <Button
+                  onClick={() => {
+                    window.open(
+                      `https://www.youtube.com/watch?v=${trailerLink}`
+                    );
+                  }}
+                  sx={{
+                    border: "1px solid var(--primary)",
+                    p: 1,
+                    width: "100%",
+                    color: "var(--primary)",
+                    mx: "auto",
+                    fontWeight: "600",
+                    letterSpacing: "1.5px",
+                    "&:hover": {
+                      backgroundColor: "var(--primary)",
+                      color: "var(--light)",
+                    },
+                  }}
+                >
+                  {" "}
+                  Watch Trailer{" "}
+                </Button>
+              </Typography>
+              {movie.homepage && (
+                <Typography
+                  width="90%"
+                  textAlign="center"
+                  sx={{
+                    mt: 2,
+                    mb: 4,
+                    mx: "auto",
+                  }}
+                >
+                  <Button
+                    onClick={() => {
+                      window.open(movie.homepage);
+                    }}
+                    sx={{
+                      border: "1px solid var(--primary)",
+                      p: 1,
+                      width: "100%",
+                      color: "var(--primary)",
+                      mx: "auto",
+                      fontWeight: "600",
+                      letterSpacing: "1.5px",
+                      "&:hover": {
+                        backgroundColor: "var(--primary)",
+                        color: "var(--light)",
+                      },
+                    }}
+                  >
+                    {movie.homepage.includes("netflix")
+                      ? "Watch on netflix"
+                      : "Movie homepage"}
+                  </Button>
+                </Typography>
+              )}
               <Divider />
               <Grid
                 sx={{
