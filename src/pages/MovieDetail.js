@@ -14,13 +14,13 @@ import {
 const MovieDetail = () => {
   const movie = useLoaderData();
   const trailerLink = movie.videos.results.find(
-    (item) => item.type === "Trailer"
+    (item) => item.type === "Trailer" && item.key
   ).key;
   console.log({ movie });
   console.log({ trailerLink });
 
   return (
-    <Container maxWidth sx={{ backgroundColor: "var(--light)" }}>
+    <Container maxWidth="true" sx={{ backgroundColor: "var(--light)" }}>
       <Grid
         container
         sx={{
@@ -104,7 +104,7 @@ const MovieDetail = () => {
 
               <Typography
                 color="text.secondary"
-                textAlign="justify"
+                textAlign="center"
                 sx={{ width: "90%", fontWeight: "600", my: 4, mx: "auto" }}
               >
                 {movie.overview}

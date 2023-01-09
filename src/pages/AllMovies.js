@@ -1,31 +1,47 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState } from "react";
+import { fetchMovies } from "../Data/Api";
+import { useLocation, useNavigate } from "react-router-dom";
+import { Container } from "@mui/system";
+import { Button } from "@mui/material";
 import Movies from "../components/Movies/Movies";
 import MainHeader from "../components/Layout/MainHeader";
-import { fetchMovies } from "../Data/Api";
-import { useLoaderData, useLocation, useNavigate } from "react-router-dom";
-import { Container } from "@mui/system";
 import NoMovieFound from "../components/Movies/NoMovieFound";
-import { Button } from "@mui/material";
 
 const AllMovies = () => {
-  const loadedMovies = useLoaderData();
-  let { results: allMovies } = loadedMovies;
-  const [page, setPage] = useState(2);
-  const [movies, setMovies] = useState(allMovies);
+  // Setting movies from loaded movies to all movies if movies is not available in localStorage
+  // const [allMovies, setAllMovies] = useState(() => {
+  //   if (localStorage.getItem("movies")) {
+  //     return JSON.parse(localStorage.getItem("movies"));
+  //   }
+  //   return loadedMovies.results;
+  // });
+  //  Setting page by default to 2 if not available in localStorage
+  const [page, setPage] = useState(1);
+
+  const [movies, setMovies] = useState([]);
+  const [allMovies, setAllMovies] = useState([]);
   const navigate = useNavigate();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const sortingOrder = queryParams.get("sort");
-  let moreMovies = [];
 
   const loadMoreMovies = async () => {
-    setPage((prevPage) => prevPage + 1);
-    moreMovies = await fetchMovies(page);
-    allMovies = [...allMovies, ...moreMovies.results];
-    console.log({ allMovies });
-    setMovies(allMovies);
+    setPage((prevPage) => {
+      return prevPage + 1;
+    });
   };
-
+  useEffect(() => {
+    console.log({ page });
+    let moreMovies = [];
+    const fetchMoreMovies = async () => {
+      moreMovies = await fetchMovies(page);
+      setMovies(moreMovies.results);
+      return moreMovies.results;
+    };
+    fetchMoreMovies();
+    // setAllMovies([...allMovies]);
+  }, [page]);
+  console.log({ allMovies });
   const filterMoviesHandler = (str) => {
     str.trim().length !== 0
       ? setMovies(
@@ -75,6 +91,6 @@ const AllMovies = () => {
 };
 
 export default AllMovies;
-export const loader = () => {
-  return fetchMovies();
-};
+// export const loader = () => {
+//   return fetchMovies();
+// };

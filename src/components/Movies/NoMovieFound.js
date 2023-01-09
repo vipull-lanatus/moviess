@@ -5,7 +5,7 @@ import React from "react";
 
 const NoMovieFound = () => {
   return (
-    <Container maxWidth disableGutters>
+    <Container maxWidth="true" disableGutters>
       <Grid
         container
         sx={{
