@@ -1,7 +1,7 @@
 .mainHeader {
   width: 100%;
   height: auto;
-  max-height: 5rem;
+  max-height: 10vh;
   margin: 0 auto;
   padding: 3rem;
   display: flex;

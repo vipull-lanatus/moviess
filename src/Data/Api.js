@@ -1,9 +1,9 @@
 const API_KEY = "144f6087e03002cc3af283b78ee6050d";
 
-export const fetchMovies = async (page = 1) => {
+export const fetchMovies = async () => {
   try {
     const response = await fetch(
-      `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&page=${page}`
+      `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}`
     );
 
     if (!response.ok) {

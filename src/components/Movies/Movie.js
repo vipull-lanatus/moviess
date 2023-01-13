@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   Button,
   Card,
@@ -9,6 +9,9 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 const Movie = (props) => {
+  const setMovieHandler = () => {
+    localStorage.setItem("movie", JSON.stringify(props.movie));
+  };
   return (
     <Card
       sx={{
@@ -52,6 +55,7 @@ const Movie = (props) => {
           }}
         >
           <Button
+            onClick={setMovieHandler}
             sx={{
               width: "100%",
               height: "100%",

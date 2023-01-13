@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { fetchMovie } from "../Data/Api";
-import { useLoaderData } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import {
   Button,
   Card,
@@ -12,19 +12,26 @@ import {
 } from "@mui/material";
 
 const MovieDetail = () => {
-  const movie = useLoaderData();
-  const trailerLink = movie.videos.results.find(
+  const { id } = useParams();
+  const [movie, setMovie] = useState({});
+  useEffect(() => {
+    const fetchSingleMovie = async () => {
+      const data = await fetchMovie(id);
+      setMovie(data);
+    };
+    fetchSingleMovie();
+  }, [id]);
+
+  const trailerLink = movie?.videos?.results.find(
     (item) => item.type === "Trailer" && item.key
   ).key;
-  console.log({ movie });
-  console.log({ trailerLink });
 
   return (
     <Container maxWidth="true" sx={{ backgroundColor: "var(--light)" }}>
       <Grid
         container
         sx={{
-          minHeight: "100vh",
+          minHeight: "90vh",
           height: "auto",
           display: "flex",
           justifyContent: "space-around",
@@ -213,8 +220,3 @@ const MovieDetail = () => {
 };
 
 export default MovieDetail;
-
-export const loader = ({ params }) => {
-  const movieID = params.id;
-  return fetchMovie(movieID);
-};

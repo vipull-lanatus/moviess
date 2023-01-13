@@ -13,9 +13,9 @@ const MainHeader = (props) => {
         <span>VMovies</span>
       </div>
       <div className={style.actions}>
-        <Search onChange={props.onChange} />
+        <Search onChange={props.filterMoviesHandler} />
         <Button
-          onClick={props.onClick}
+          onClick={props.changeSortingOrder}
           sx={{
             ml: 2,
             p: 1,

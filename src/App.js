@@ -1,27 +1,28 @@
-import "./App.css";
-import {
-  Route,
-  Navigate,
-  createBrowserRouter,
-  createRoutesFromElements,
-  RouterProvider,
-} from "react-router-dom";
-import AllMovies from "./pages/AllMovies";
-import MovieDetail, { loader as getMovie } from "./pages/MovieDetail";
-import EditMovie from "./pages/EditMovie";
+import React, { Suspense } from "react";
 
-const router = createBrowserRouter(
-  createRoutesFromElements(
-    <Route errorElement={<p>Something went wrong...</p>}>
-      <Route path="/" element={<Navigate to="/movies" />} />
-      <Route path="/movies" element={<AllMovies />} />
-      <Route path="/movies/:id" element={<MovieDetail />} loader={getMovie} />
-      <Route path="/edit" element={<EditMovie />} />
-    </Route>
-  )
-);
+import "./App.css";
+import { Route, Navigate, BrowserRouter } from "react-router-dom";
+
+import MovieDetail from "./pages/MovieDetail";
+import DataManager from "./DataManager";
+import { MovieContextProvider } from "./Context/MovieContext";
+
+const EditMovie = React.lazy(() => import("./pages/EditMovie"));
+
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <MovieContextProvider>
+      <BrowserRouter>
+        <Suspense fallback={<p>Loading...</p>}>
+          <DataManager>
+            <Route path="/" element={<Navigate to="/movies" />} />
+            <Route path="/movies/:id" element={<MovieDetail />} />
+            <Route path="/edit" element={<EditMovie />} />
+          </DataManager>
+        </Suspense>
+      </BrowserRouter>
+    </MovieContextProvider>
+  );
 }
 
 export default App;
