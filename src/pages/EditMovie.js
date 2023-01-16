@@ -1,6 +1,6 @@
 import React, { useContext, useRef, useState } from "react";
 import { MovieContext } from "../Context/MovieContext";
-import { Button, Container, Grid, Input } from "@mui/material";
+import { Button, Container, Grid, Input, TextField } from "@mui/material";
 
 const EditMovie = () => {
   const [editMovieId, setEditMovieId] = useState();
@@ -45,26 +45,30 @@ const EditMovie = () => {
         {moviesContext.map((movie, i) => {
           return (
             <Grid item md={12} key={`${movie.id}_${i}`}>
-              <form key={`${movie.id}_${i}`} onSubmit={onSubmitHandler}>
+              <form onSubmit={onSubmitHandler}>
                 {isEditable && editMovieId === movie.id ? (
-                  <Input ref={titleRef} type="text" />
+                  <TextField ref={titleRef} type="text" />
                 ) : (
-                  <Input type="text" value={movie.title} disabled />
+                  <TextField type="text" value={movie.title} disabled />
                 )}
                 {isEditable && editMovieId === movie.id ? (
-                  <Input
+                  <TextField
                     ref={voteRef}
                     type="number"
-                    step="0.1"
                     defaultValue={movie.vote_average}
+                    inputProps={{
+                      min: 0.1,
+                      step: 0.1,
+                      max: 10.0,
+                    }}
                   />
                 ) : (
-                  <Input type="text" value={movie.vote_average} disabled />
+                  <TextField type="text" value={movie.vote_average} disabled />
                 )}
                 {isEditable && editMovieId === movie.id ? (
-                  <Input ref={dateRef} type="text" />
+                  <TextField ref={dateRef} type="text" />
                 ) : (
-                  <Input type="text" value={movie.release_date} disabled />
+                  <TextField type="text" value={movie.release_date} disabled />
                 )}
                 <div>
                   {editMovieId !== movie.id && (
