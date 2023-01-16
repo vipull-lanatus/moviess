@@ -22,9 +22,9 @@ const MovieDetail = () => {
     fetchSingleMovie();
   }, [id]);
 
-  const trailerLink = movie?.videos?.results.find(
+  const trailerLink = movie.videos?.results.find(
     (item) => item.type === "Trailer" && item.key
-  ).key;
+  )?.key;
 
   return (
     <Container maxWidth="true" sx={{ backgroundColor: "var(--light)" }}>

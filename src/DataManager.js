@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import MainHeader from "./components/Layout/MainHeader";
 import {
   Route,
@@ -8,12 +8,26 @@ import {
   useParams,
 } from "react-router-dom";
 import { MovieContext } from "./Context/MovieContext";
+import { fetchMovies } from "./Data/Api";
 
 const AllMovies = React.lazy(() => import("./pages/AllMovies"));
 
 const DataManager = ({ children }) => {
-  const { moviesContext, setMoviesContext, allMovies } =
+  const { moviesContext, setMoviesContext, allMovies, setAllMovies } =
     useContext(MovieContext);
+
+  // to fetch movies from TMDB Movie API --start
+  useEffect(() => {
+    console.log("It's Ran");
+    let moreMovies = [];
+    const fetchMoreMovies = async () => {
+      moreMovies = await fetchMovies();
+      setAllMovies([...moreMovies.results]);
+      setMoviesContext([...moreMovies.results]);
+    };
+    fetchMoreMovies();
+  }, [setMoviesContext, setAllMovies]);
+  // to fetch movies from TMDB Movie API --end
 
   //For Sorting
   const navigate = useNavigate();

@@ -6,20 +6,7 @@ import NoMovieFound from "../components/Movies/NoMovieFound";
 import { MovieContext } from "../Context/MovieContext";
 
 const AllMovies = () => {
-  const { moviesContext, setMoviesContext, setAllMovies } =
-    useContext(MovieContext);
-
-  // to fetch movies from TMDB Movie API --start
-  useEffect(() => {
-    let moreMovies = [];
-    const fetchMoreMovies = async () => {
-      moreMovies = await fetchMovies();
-      setAllMovies([...moreMovies.results]);
-      setMoviesContext([...moreMovies.results]);
-    };
-    fetchMoreMovies();
-  }, [setMoviesContext, setAllMovies]);
-  // to fetch movies from TMDB Movie API --end
+  const { moviesContext } = useContext(MovieContext);
 
   return (
     <Container
