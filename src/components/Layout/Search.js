@@ -16,7 +16,6 @@ const Search = (props) => {
         borderRadius: 2,
         p: 1,
         pl: 2,
-        fontWeight: "700",
       }}
       InputProps={{
         disableUnderline: true,
