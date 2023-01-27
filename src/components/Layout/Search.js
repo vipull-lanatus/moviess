@@ -8,8 +8,8 @@ const Search = (props) => {
     <TextField
       variant="standard"
       onChange={searchChangeHandler}
-      placeholder="Movie"
-      color="success"
+      placeholder="Search"
+      size="small"
       sx={{
         width: "100%",
         border: "1px solid var(--light)",

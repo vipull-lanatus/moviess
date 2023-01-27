@@ -18,7 +18,6 @@ const DataManager = ({ children }) => {
 
   // to fetch movies from TMDB Movie API --start
   useEffect(() => {
-    console.log("It's Ran");
     let moreMovies = [];
     const fetchMoreMovies = async () => {
       moreMovies = await fetchMovies();
