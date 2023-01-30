@@ -1,6 +1,6 @@
 import React from "react";
 import Movie from "./Movie";
-import { Button, Container, Grid } from "@mui/material";
+import { Container, Grid } from "@mui/material";
 
 const Movies = (props) => {
   return (

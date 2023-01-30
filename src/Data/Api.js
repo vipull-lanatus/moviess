@@ -28,3 +28,11 @@ export const fetchMovie = async (movieID) => {
     throw error;
   }
 };
+{
+  /* <InfiniteScroll
+        dataLength={movies.length}
+        next={fetchMoreData}
+        hasMore={movies.length !== totalResults}
+        loader={<Spinner />}
+      ></InfiniteScroll> */
+}
