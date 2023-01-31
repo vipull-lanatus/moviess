@@ -9,10 +9,10 @@ const NoMovieFound = () => {
       <Grid
         container
         sx={{
-          height: "87.8vh",
+          height: "90vh",
           display: "flex",
+          alignItems: "center",
           justifyContent: "center",
-          mt: "5rem",
         }}
       >
         <Grid item md={12} textAlign="center" color="gray">

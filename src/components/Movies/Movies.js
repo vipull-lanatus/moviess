@@ -2,18 +2,14 @@ import React from "react";
 import Movie from "./Movie";
 import { Container, Grid } from "@mui/material";
 
-const Movies = (props) => {
+const Movies = ({ movies, filterStr }) => {
   return (
-    <Container maxWidth="true">
-      <Grid
-        container
-        spacing={3}
-        sx={{
-          height: "auto",
-          minHeight: "100vh",
-        }}
-      >
-        {props.movies.map((item, i) => (
+    <Container
+      maxWidth="true"
+      sx={{ position: "absolute", my: 10, height: "90vh" }}
+    >
+      <Grid container>
+        {movies.map((item, i) => (
           <Grid key={`${item.id}_${i}`} item xs={12} sm={6} md={4}>
             <Movie key={`${item.id}_${i}`} movie={item} />
           </Grid>

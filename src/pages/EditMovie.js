@@ -5,13 +5,10 @@ import { Button, Container, Grid, TextField } from "@mui/material";
 const EditMovie = () => {
   const [editMovieId, setEditMovieId] = useState();
   const [isEditable, setIsEditable] = useState(false);
-  // const [editMovie, setEditMovie] = useState({});
   const titleRef = useRef();
   const voteRef = useRef();
   const dateRef = useRef();
   const { moviesContext, allMovies } = useContext(MovieContext);
-
-  console.log({ moviesContext });
 
   const setMovieEditable = (id) => {
     setIsEditable(true);
@@ -31,16 +28,16 @@ const EditMovie = () => {
       vote_average: voteRef.current.value,
       release_date: dateRef.current.value,
     };
-
     moviesContext.splice(index, 1, movie);
     allMovies.splice(index, 1, movie);
-
-    console.log({ movie });
     setIsEditable(false);
     setEditMovieId("");
   };
   return (
-    <Container maxWidth="true">
+    <Container
+      maxWidth="true"
+      sx={{ position: "absolute", my: 10, height: "90vh" }}
+    >
       <Grid container>
         {moviesContext.map((movie, i) => {
           return (

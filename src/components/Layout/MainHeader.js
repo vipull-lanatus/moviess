@@ -2,20 +2,36 @@ import React from "react";
 import style from "./MainHeader.module.css";
 import { NavLink, useLocation } from "react-router-dom";
 import Search from "./Search";
-import { Button } from "@mui/material";
+import { Button, Container } from "@mui/material";
 
-const MainHeader = (props) => {
+const MainHeader = ({ filterMoviesHandler, changeSortingOrder, movieId }) => {
   const location = useLocation();
+  const { pathname } = location;
   const queryParams = new URLSearchParams(location.search);
   return (
-    <div className={style.mainHeader}>
+    <Container
+      maxWidth="true"
+      sx={{
+        display:
+          pathname === `/movies/${localStorage.getItem("movieId")}`
+            ? "none"
+            : "flex",
+        justifyContent: "space-around",
+        alignItems: "center",
+        height: "10vh",
+        zIndex: "99",
+        background: "var(--primary)",
+        color: "var(--light)",
+        position: "fixed",
+      }}
+    >
       <div className={style.logo}>
         <span>VMovies</span>
       </div>
       <div className={style.actions}>
-        <Search onChange={props.filterMoviesHandler} />
+        <Search onChange={filterMoviesHandler} />
         <Button
-          onClick={props.changeSortingOrder}
+          onClick={changeSortingOrder}
           sx={{
             ml: 2,
             p: 1,
@@ -50,7 +66,7 @@ const MainHeader = (props) => {
           </NavLink>
         </li>
       </ul>
-    </div>
+    </Container>
   );
 };
 

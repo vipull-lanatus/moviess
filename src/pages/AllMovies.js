@@ -1,5 +1,4 @@
-import React, { useContext, useEffect } from "react";
-import { fetchMovies } from "../Data/Api";
+import React, { useContext } from "react";
 import { Container } from "@mui/system";
 import Movies from "../components/Movies/Movies";
 import NoMovieFound from "../components/Movies/NoMovieFound";

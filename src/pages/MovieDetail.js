@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { fetchMovie } from "../Data/Api";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { IoArrowBackCircleOutline } from "react-icons/io5";
 import {
   Button,
   Card,
@@ -14,6 +15,7 @@ import {
 const MovieDetail = () => {
   const { id } = useParams();
   const [movie, setMovie] = useState({});
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchSingleMovie = async () => {
       const data = await fetchMovie(id);
@@ -27,28 +29,49 @@ const MovieDetail = () => {
   )?.key;
 
   return (
-    <Container maxWidth="true" sx={{ backgroundColor: "var(--light)" }}>
+    <Container
+      maxWidth="true"
+      sx={{
+        position: "absolute",
+        height: "100vh",
+        backgroundColor: "var(--light)",
+      }}
+    >
+      <IoArrowBackCircleOutline
+        size="2em"
+        style={{
+          position: "absolute",
+          marginTop: 20,
+          color: "var(--primary)",
+        }}
+        onClick={() => {
+          localStorage.removeItem("movieId");
+          navigate("/");
+        }}
+      />
       <Grid
         container
         sx={{
+          width: "90%",
           minHeight: "90vh",
           height: "auto",
           display: "flex",
           justifyContent: "space-around",
           boxShadow: "none",
+          marginX: "auto",
         }}
       >
         <Grid
           item
           md={4}
-          sm={12}
+          xs={12}
           sx={{
             mt: 8,
-
             maxHeight: "100vh",
             borderRadius: "10px",
             zIndex: 1,
             boxShadow: "none",
+            textAlign: "center",
           }}
         >
           <img
@@ -64,7 +87,7 @@ const MovieDetail = () => {
         <Grid
           item
           md={7}
-          sm={8}
+          xs={8}
           sx={{
             mt: 8,
             height: "90vh",
@@ -194,7 +217,7 @@ const MovieDetail = () => {
                 }}
               >
                 <Typography gutterBottom sx={{ fontWeight: "700" }}>
-                  Runtime :{" "}
+                  Runtime :
                   {movie.runtime ? `${movie.runtime} mins` : "undefined"}
                 </Typography>
                 <Typography gutterBottom sx={{ fontWeight: "700" }}>
@@ -204,7 +227,7 @@ const MovieDetail = () => {
                     : "undefined"}
                 </Typography>
                 <Typography gutterBottom sx={{ fontWeight: "700" }}>
-                  Release date :{" "}
+                  Release date :
                   {movie.release_date ? movie.release_date : "undefined"}
                 </Typography>
                 <Typography gutterBottom sx={{ fontWeight: "700" }}>
